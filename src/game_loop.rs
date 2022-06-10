@@ -1,5 +1,3 @@
-use std::ops::Index;
-
 use colored::Colorize;
 
 use crate::{

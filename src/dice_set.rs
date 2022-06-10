@@ -3,15 +3,7 @@ use std::{fmt::Display, str::FromStr};
 use colored::Colorize;
 use rand::prelude::*;
 
-use crate::score::{score_dice_set, Score, should_color};
-
-// use rand::prelude::*;
-
-// impl DiceValue {
-//     fn new_rand() -> DiceValue {
-//         DiceValue(rand::thread_rng().gen_range(1..=6))
-//     }
-// }
+use crate::score::{score_dice_set, should_color, Score};
 
 const DICE_IN_DICE_SET: usize = 6;
 

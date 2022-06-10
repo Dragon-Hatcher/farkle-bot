@@ -94,7 +94,6 @@ pub fn should_color(ds: &DiceSet) -> [bool; 6] {
         count[*die as usize - 1] += 1;
     }
 
-
     if count == [1, 1, 1, 1, 1, 1] {
         // Straight
         return [true; 6];
@@ -131,51 +130,5 @@ pub fn should_color(ds: &DiceSet) -> [bool; 6] {
         color[x] = true;
     }
 
-
     color
 }
-
-// #[cfg(test)]
-// mod test {
-//     use super::{score_dice_set, Score};
-
-//     #[test]
-//     fn ones_and_fives() {
-//         assert_eq!(score_dice_set(&mut [1, 1, 5, 3, 6, 4].into()), Score(250));
-//         assert_eq!(score_dice_set(&mut [5, 1, 2, 3, 4, 6].into()), Score(150));
-//     }
-
-//     #[test]
-//     fn big_scores() {
-//         // 6 of a kind
-//         assert_eq!(score_dice_set(&mut [2, 2, 2, 2, 2, 2].into()), Score(3000));
-//         assert_eq!(score_dice_set(&mut [1, 1, 1, 1, 1, 1].into()), Score(3000));
-
-//         // 5 of a kind
-//         assert_eq!(score_dice_set(&mut [4, 4, 4, 4, 4, 6].into()), Score(2000));
-//         assert_eq!(score_dice_set(&mut [2, 2, 2, 2, 2, 5].into()), Score(2050));
-
-//         // 4 of a kind
-//         assert_eq!(score_dice_set(&mut [2, 2, 2, 2, 1, 5].into()), Score(1150));
-//         assert_eq!(score_dice_set(&mut [6, 6, 6, 6, 1, 1].into()), Score(1500));
-//         assert_eq!(score_dice_set(&mut [6, 6, 6, 6, 2, 2].into()), Score(1500));
-
-//         // straight
-//         assert_eq!(score_dice_set(&mut [1, 2, 3, 4, 5, 6].into()), Score(1500));
-//         assert_eq!(score_dice_set(&mut [6, 3, 2, 5, 4, 1].into()), Score(1500));
-
-//         // 3 pairs
-//         assert_eq!(score_dice_set(&mut [1, 1, 2, 2, 3, 3].into()), Score(1500));
-//         assert_eq!(score_dice_set(&mut [6, 3, 4, 6, 4, 3].into()), Score(1500));
-
-//         // 2 triples
-//         assert_eq!(score_dice_set(&mut [5, 5, 5, 6, 6, 6].into()), Score(2500));
-//         assert_eq!(score_dice_set(&mut [1, 2, 2, 1, 2, 1].into()), Score(2500));
-//     }
-
-//     #[test]
-//     fn triples() {
-//         assert_eq!(score_dice_set(&mut [2, 3, 2, 4, 2, 6].into()), Score(200));
-//         assert_eq!(score_dice_set(&mut [1, 1, 1, 2, 3, 4].into()), Score(300));
-//     }
-// }
