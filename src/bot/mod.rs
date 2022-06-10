@@ -33,11 +33,12 @@ impl From<&GameState> for SimpleGameState {
 
 impl Robbie {
     pub fn choose_action_simple(gs: SimpleGameState) -> RollAction {
+        let score = gs.cur_score;
         let value_of_stopping = 10000.0 - gs.cur_score.0 as f32 - gs.pot.0 as f32;
         let value_of_rolling = Self::recursive_eval_continuing(gs, 100, true);
 
-        println!("Value of stopping: {}", 10000.0 - value_of_stopping);
-        println!("Value of rolling:  {}", 10000.0 - value_of_rolling);
+        println!("Value of stopping: {}", 10000.0 - score.0 as f32 - value_of_stopping);
+        println!("Value of rolling:  {}", 10000.0 - score.0 as f32 - value_of_rolling);
 
         if value_of_stopping < value_of_rolling {
             RollAction::Stop
@@ -59,8 +60,8 @@ impl Robbie {
             true,
         );
 
-        println!("Value of keeping:   {}", 10000.0 - value_of_keep);
-        println!("Value of resetting: {}", 10000.0 - value_of_reset);
+        println!("Value of keeping:   {}", 10000.0 - score.0 as f32 - value_of_keep);
+        println!("Value of resetting: {}", 10000.0 - score.0 as f32 - value_of_reset);
 
         if value_of_keep < value_of_reset {
             ResetAction::Keep
