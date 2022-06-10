@@ -4,7 +4,7 @@ use bot::Robbie;
 use game_loop::run_game;
 use human_player::HumanPlayer;
 
-use crate::terminal::clear_terminal;
+use crate::{game_player::GamePlayer, terminal::clear_terminal};
 
 mod bot;
 mod dice_set;
@@ -17,15 +17,17 @@ mod terminal;
 fn main() {
     clear_terminal();
 
-    let mut name = String::new();
+    let mut names = String::new();
     print!("Who's playing? ");
     let _ = io::stdout().flush();
-    io::stdin().read_line(&mut name).expect("Non UTF8? Really?");
-    name = name.trim().into();
+    io::stdin()
+        .read_line(&mut names)
+        .expect("Non UTF8? Really?");
+    let names = names.split(',').map(|s| s.trim().into());
+    let mut players: Vec<Box<dyn GamePlayer>> = names
+        .map(|n| Box::new(HumanPlayer::new(n)) as Box<dyn GamePlayer>)
+        .collect();
+    players.push(Box::new(Robbie));
 
-
-    run_game(
-        true,
-        vec![Box::new(HumanPlayer::new(name)), Box::new(Robbie)],
-    )
+    run_game(true, players);
 }

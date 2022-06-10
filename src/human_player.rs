@@ -22,7 +22,7 @@ impl GamePlayer for HumanPlayer {
             match input.trim().to_lowercase().as_str() {
                 "roll" => return RollAction::Roll,
                 "stop" => return RollAction::Stop,
-                _ => {}
+                _ => input.clear()
             }
         }
     }
@@ -36,7 +36,7 @@ impl GamePlayer for HumanPlayer {
             match input.trim().to_lowercase().as_str() {
                 "keep" => return ResetAction::Keep,
                 "reset" => return ResetAction::Reset,
-                _ => {}
+                _ => input.clear()
             }
         }
     }
