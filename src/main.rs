@@ -1,5 +1,6 @@
 use std::io::{stdin, stdout, Write};
 
+use bot::Robbie;
 use game_loop::run_game;
 use human_player::HumanPlayer;
 
@@ -9,13 +10,14 @@ mod game_player;
 mod human_player;
 mod score;
 mod terminal;
+mod bot;
 
 fn main() {
     run_game(
         true,
         vec![
             Box::new(HumanPlayer::new("Alice".into())),
-            Box::new(HumanPlayer::new("Bob".into())),
+            Box::new(Robbie),
         ],
     )
     // loop {

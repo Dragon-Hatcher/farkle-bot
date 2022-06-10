@@ -19,7 +19,7 @@ pub fn run_game(print: bool, players: Vec<Box<dyn GamePlayer>>) {
     let num_players = players.len();
     let p_names: Vec<&str> = players.iter().map(|p| p.name()).collect();
     let mut gs = GameState {
-        scores: vec![Score(9000); num_players],
+        scores: vec![Score(0); num_players],
         current_pot: Score(0),
         current_player: 0_usize,
         dice_left: 6,
@@ -69,14 +69,26 @@ pub fn run_game(print: bool, players: Vec<Box<dyn GamePlayer>>) {
             }
 
             match current_player.keep_or_reset(&gs) {
-                ResetAction::Keep => {}
+                ResetAction::Keep => {
+                    println!(
+                        "{}",
+                        format!("{} wants to keep these dice.", current_player.name()).blue()
+                    );
+                }
                 ResetAction::Reset => {
+                    println!(
+                        "{}",
+                        format!("{} is going to start over.", current_player.name()).blue()
+                    );
                     gs.current_pot = Score(0);
                     gs.dice_left = 6;
                 }
             }
 
             if print {
+                if !current_player.is_human() {
+                    current_player.confirm()
+                }
                 clear_terminal();
             }
         }
@@ -106,7 +118,9 @@ pub fn run_game(print: bool, players: Vec<Box<dyn GamePlayer>>) {
                         } else {
                             "dice remain"
                         },
-                        (gs.scores[gs.current_player] + &gs.current_pot + &score).to_string().green()
+                        (gs.scores[gs.current_player] + &gs.current_pot + &score)
+                            .to_string()
+                            .green()
                     )
                 }
             }
@@ -139,12 +153,22 @@ pub fn run_game(print: bool, players: Vec<Box<dyn GamePlayer>>) {
 
             if print {
                 match action {
-                    RollAction::Roll => println!("{} wants to roll again!", current_player.name()),
-                    RollAction::Stop => println!(
-                        "{} is going to stop there and get {} points!",
-                        current_player.name(),
-                        gs.current_pot
+                    RollAction::Roll => println!(
+                        "{}",
+                        format!("{} wants to roll again!", current_player.name()).blue()
                     ),
+                    RollAction::Stop => println!(
+                        "{}",
+                        format!(
+                            "{} is going to stop there and get {} points!",
+                            current_player.name(),
+                            gs.current_pot
+                        )
+                        .blue()
+                    ),
+                }
+                if !current_player.is_human() {
+                    current_player.confirm()
                 }
             }
 
@@ -161,7 +185,10 @@ pub fn run_game(print: bool, players: Vec<Box<dyn GamePlayer>>) {
 
     if print {
         clear_terminal();
-        println!("The winner is {}!", p_names[gs.scores.iter().position(|s| s > &Score(10000)).unwrap()]);
+        println!(
+            "The winner is {}!",
+            p_names[gs.scores.iter().position(|s| s > &Score(10000)).unwrap()]
+        );
         println!();
         print_scores(&p_names, &gs);
     }
