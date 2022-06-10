@@ -7,5 +7,8 @@ edition = "2021"
 
 [dependencies]
 anyhow = "1.0.57"
+atomic_float = "0.1.0"
 colored = "2.0.0"
+indicatif = "0.16.2"
 rand = "0.8.5"
+rayon = "1.5.3"

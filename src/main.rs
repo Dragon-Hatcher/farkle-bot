@@ -1,5 +1,3 @@
-use std::io::{stdin, stdout, Write};
-
 use bot::Robbie;
 use game_loop::run_game;
 use human_player::HumanPlayer;
