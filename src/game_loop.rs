@@ -70,13 +70,14 @@ pub fn run_game(print: bool, players: Vec<Box<dyn GamePlayer>>) {
                 ResetAction::Keep => {
                     println!(
                         "{}",
-                        format!("{} wants to keep these dice.", current_player.name()).blue()
+                        format!("{} wants to keep these dice.", current_player.name())
+                            .bright_blue()
                     );
                 }
                 ResetAction::Reset => {
                     println!(
                         "{}",
-                        format!("{} is going to start over.", current_player.name()).blue()
+                        format!("{} is going to start over.", current_player.name()).bright_blue()
                     );
                     gs.current_pot = Score(0);
                     gs.dice_left = 6;
@@ -153,7 +154,7 @@ pub fn run_game(print: bool, players: Vec<Box<dyn GamePlayer>>) {
                 match action {
                     RollAction::Roll => println!(
                         "{}",
-                        format!("{} wants to roll again!", current_player.name()).blue()
+                        format!("{} wants to roll again!", current_player.name()).bright_blue()
                     ),
                     RollAction::Stop => println!(
                         "{}",
@@ -162,7 +163,7 @@ pub fn run_game(print: bool, players: Vec<Box<dyn GamePlayer>>) {
                             current_player.name(),
                             gs.current_pot
                         )
-                        .blue()
+                        .bright_blue()
                     ),
                 }
                 if !current_player.is_human() {
